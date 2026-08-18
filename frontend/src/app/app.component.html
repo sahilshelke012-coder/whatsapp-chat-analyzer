@@ -1,0 +1,63 @@
+<div class="app-layout">
+  <!-- Top Navigation Bar -->
+  <header class="app-navbar">
+    <div class="brand" (click)="resetAnalysis()">
+      <div class="brand-logo">💬</div>
+      <div class="brand-info">
+        <h1>WhatsApp <span class="gradient-text">Chat Analyzer</span></h1>
+        <p class="subtitle">Full-Stack Analytics & Interactive Dashboard</p>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button *ngIf="analysisData" class="btn btn-new-analysis" (click)="resetAnalysis()">
+        ➕ Analyze New Chat
+      </button>
+      <span class="status-badge"><span class="pulse-dot"></span> System Live</span>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-content">
+    
+    <!-- State A: Landing & Upload Section -->
+    <ng-container *ngIf="!analysisData">
+      <div class="hero-banner glass-card">
+        <h2>Transform WhatsApp Chat Exports into Visual Insights</h2>
+        <p>Upload your exported <code>.txt</code> chat file to analyze total message counts, peak messaging hours, participant statistics, word frequencies, and emoji distribution.</p>
+      </div>
+
+      <!-- File Upload Component -->
+      <app-file-upload (analysisCompleted)="onAnalysisReceived($event)"></app-file-upload>
+    </ng-container>
+
+    <!-- State B: Dashboard View -->
+    <ng-container *ngIf="analysisData">
+      <div class="dashboard-header">
+        <div class="file-title-group">
+          <span class="active-badge">ACTIVE ANALYSIS</span>
+          <h2>{{ analysisData.fileName }}</h2>
+          <span class="timestamp">Analyzed on {{ analysisData.uploadedAt | date:'medium' }}</span>
+        </div>
+        <button class="btn btn-outline" (click)="resetAnalysis()">
+          ← Upload Another File
+        </button>
+      </div>
+
+      <!-- 1. Overall Summary Cards -->
+      <app-overall-stats [stats]="analysisData.overall"></app-overall-stats>
+
+      <!-- 2. Interactive Charts (Chart.js) -->
+      <app-dashboard 
+        [timeAnalysis]="analysisData.timeAnalysis" 
+        [userStats]="analysisData.userAnalysis">
+      </app-dashboard>
+
+      <!-- 3. Participant Analysis Table -->
+      <app-user-stats [userStats]="analysisData.userAnalysis"></app-user-stats>
+
+      <!-- 4. Content & Emoji Analysis -->
+      <app-content-stats [contentStats]="analysisData.contentAnalysis"></app-content-stats>
+    </ng-container>
+
+  </main>
+</div>

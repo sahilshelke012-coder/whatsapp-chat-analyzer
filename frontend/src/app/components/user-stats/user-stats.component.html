@@ -1,0 +1,49 @@
+<div class="user-stats-section glass-card">
+  <div class="section-title-bar">
+    <div class="title-with-icon">
+      <span class="icon">👥</span>
+      <h3>Participant Activity & Contribution</h3>
+    </div>
+    <span class="count-badge">{{ userStats.length }} Participants</span>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Participant</th>
+          <th>Messages</th>
+          <th>Words</th>
+          <th>Media Shared</th>
+          <th>Activity Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userStats; let i = index">
+          <td class="user-cell">
+            <div class="user-avatar" [style.background-color]="getAvatarColor(i)">
+              {{ getAvatarInitial(user.name) }}
+            </div>
+            <span class="user-name">{{ user.name }}</span>
+            <span class="top-rank-badge" *ngIf="i === 0">👑 Top</span>
+          </td>
+          <td class="num-cell"><strong>{{ user.messages | number }}</strong></td>
+          <td class="num-cell">{{ user.words | number }}</td>
+          <td class="num-cell">{{ user.media | number }}</td>
+          <td class="progress-cell">
+            <div class="progress-wrapper">
+              <div class="progress-bar-bg">
+                <div 
+                  class="progress-bar-fill" 
+                  [style.width.%]="user.activityPercentage"
+                  [style.background-color]="getAvatarColor(i)">
+                </div>
+              </div>
+              <span class="percentage-label">{{ user.activityPercentage }}%</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="upload-container glass-card">
+  <div class="upload-header">
+    <div class="header-icon">📂</div>
+    <h3>Upload WhatsApp Exported Chat</h3>
+    <p>Export chat from WhatsApp without media (or with media placeholders) as a <code>.txt</code> file and upload below.</p>
+  </div>
+
+  <!-- Drag and Drop Dropzone -->
+  <div 
+    class="dropzone" 
+    [class.dragging]="isDragging"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    (click)="fileInput.click()">
+
+    <input 
+      #fileInput 
+      type="file" 
+      accept=".txt" 
+      style="display: none;" 
+      (change)="onFileSelected($event)" />
+
+    <div class="dropzone-content" *ngIf="!selectedFile">
+      <div class="upload-cloud-icon">⚡</div>
+      <h4>Drag & Drop your chat <code>.txt</code> file here</h4>
+      <span class="or-divider">or</span>
+      <button type="button" class="btn btn-outline" (click)="$event.stopPropagation(); fileInput.click()">
+        Browse File
+      </button>
+      <span class="file-hint">Supports WhatsApp 12h/24h exported chat (.txt) formats</span>
+    </div>
+
+    <!-- Selected File Preview -->
+    <div class="file-preview" *ngIf="selectedFile" (click)="$event.stopPropagation()">
+      <div class="file-icon">📄</div>
+      <div class="file-details">
+        <span class="file-name">{{ selectedFile.name }}</span>
+        <span class="file-size">{{ formatFileSize(selectedFile.size) }}</span>
+      </div>
+      <button type="button" class="btn-remove" (click)="clearSelectedFile()" title="Remove File">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Alert -->
+  <div class="error-alert" *ngIf="errorMessage">
+    <span class="alert-icon">⚠️</span>
+    <span class="alert-text">{{ errorMessage }}</span>
+    <button type="button" class="btn-close-alert" (click)="errorMessage = null">✕</button>
+  </div>
+
+  <!-- Analyze Action Button -->
+  <div class="action-footer">
+    <button 
+      type="button" 
+      class="btn btn-primary btn-analyze" 
+      [disabled]="!selectedFile || isAnalyzing"
+      (click)="analyzeChat()">
+      <span *ngIf="!isAnalyzing">🚀 Analyze Chat Data</span>
+      <span *ngIf="isAnalyzing" class="spinner-label">
+        <span class="spinner"></span> Analyzing Chat...
+      </span>
+    </button>
+  </div>
+</div>

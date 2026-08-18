@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/dashboard/dashboard.component.scss"],
+  "sourcesContent": [".charts-dashboard {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));\n  gap: 1.5rem;\n  margin-bottom: 2rem;\n\n  .full-width {\n    grid-column: 1 / -1;\n  }\n}\n\n.chart-panel {\n  padding: 1.5rem;\n\n  .chart-header {\n    margin-bottom: 1.25rem;\n\n    h4 {\n      font-size: 1.25rem;\n      margin: 0 0 0.25rem 0;\n    }\n\n    .sub-text {\n      font-size: 0.825rem;\n      color: var(--text-subtle);\n    }\n  }\n\n  .chart-container {\n    position: relative;\n    height: 300px;\n    width: 100%;\n  }\n}\n\n@media (max-width: 768px) {\n  .charts-dashboard {\n    grid-template-columns: 1fr;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,yBAAA,OAAA,QAAA,EAAA,OAAA,KAAA,EAAA;AACA,OAAA;AACA,iBAAA;;AAEA,CANF,iBAME,CAAA;AACE,eAAA,CAAA,CAAA;;AAIJ,CAAA;AACE,WAAA;;AAEA,CAHF,YAGE,CAAA;AACE,iBAAA;;AAEA,CANJ,YAMI,CAHF,aAGE;AACE,aAAA;AACA,UAAA,EAAA,EAAA,QAAA;;AAGF,CAXJ,YAWI,CARF,aAQE,CAAA;AACE,aAAA;AACA,SAAA,IAAA;;AAIJ,CAjBF,YAiBE,CAAA;AACE,YAAA;AACA,UAAA;AACA,SAAA;;AAIJ,OAAA,CAAA,SAAA,EAAA;AACE,GApCF;AAqCI,2BAAA;;;",
+  "names": []
+}

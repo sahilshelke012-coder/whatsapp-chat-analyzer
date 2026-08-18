@@ -1,0 +1,55 @@
+<div class="stats-grid" *ngIf="stats">
+  <div class="stat-card glass-card card-messages">
+    <div class="card-icon">💬</div>
+    <div class="card-info">
+      <span class="card-label">Total Messages</span>
+      <h2 class="card-value">{{ stats.totalMessages | number }}</h2>
+      <span class="card-sub">Avg {{ stats.avgMessagesPerDay }} msgs / day</span>
+    </div>
+  </div>
+
+  <div class="stat-card glass-card card-words">
+    <div class="card-icon">📝</div>
+    <div class="card-info">
+      <span class="card-label">Total Words</span>
+      <h2 class="card-value">{{ stats.totalWords | number }}</h2>
+      <span class="card-sub">Shared across conversation</span>
+    </div>
+  </div>
+
+  <div class="stat-card glass-card card-media">
+    <div class="card-icon">🖼️</div>
+    <div class="card-info">
+      <span class="card-label">Total Media</span>
+      <h2 class="card-value">{{ stats.totalMedia | number }}</h2>
+      <span class="card-sub">Images, videos & audio</span>
+    </div>
+  </div>
+
+  <div class="stat-card glass-card card-links">
+    <div class="card-icon">🔗</div>
+    <div class="card-info">
+      <span class="card-label">Total Links</span>
+      <h2 class="card-value">{{ stats.totalLinks | number }}</h2>
+      <span class="card-sub">Shared URLs</span>
+    </div>
+  </div>
+
+  <div class="stat-card glass-card card-participants">
+    <div class="card-icon">👥</div>
+    <div class="card-info">
+      <span class="card-label">Participants</span>
+      <h2 class="card-value">{{ stats.participantCount }}</h2>
+      <span class="card-sub">Chat members</span>
+    </div>
+  </div>
+
+  <div class="stat-card glass-card card-active">
+    <div class="card-icon">👑</div>
+    <div class="card-info">
+      <span class="card-label">Most Active Participant</span>
+      <h2 class="card-value active-name">{{ stats.mostActiveParticipant }}</h2>
+      <span class="card-sub">Top contributor</span>
+    </div>
+  </div>
+</div>

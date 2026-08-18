@@ -1,0 +1,79 @@
+<div class="content-analysis-grid" *ngIf="contentStats">
+  
+  <!-- Most Frequent Words -->
+  <div class="card-panel glass-card words-panel">
+    <div class="card-header">
+      <h4>🔤 Most Frequent Words</h4>
+      <span class="sub-tag">Excludes common stop words</span>
+    </div>
+    <div class="word-cloud">
+      <span *ngFor="let item of contentStats.topWords; let i = index" 
+        class="word-tag" 
+        [class.top-word]="i < 5">
+        {{ item.word }} <small class="count">({{ item.count }})</small>
+      </span>
+      <div *ngIf="contentStats.topWords.length === 0" class="empty-state">No words analyzed</div>
+    </div>
+  </div>
+
+  <!-- Most Used Emojis -->
+  <div class="card-panel glass-card emojis-panel">
+    <div class="card-header">
+      <h4>😀 Most Used Emojis</h4>
+      <span class="sub-tag">Top emoji frequency</span>
+    </div>
+    <div class="emoji-grid">
+      <div *ngFor="let item of contentStats.topEmojis; let i = index" class="emoji-card">
+        <span class="emoji-rank">#{{ i + 1 }}</span>
+        <span class="emoji-symbol">{{ item.emoji }}</span>
+        <span class="emoji-count">{{ item.count }}</span>
+      </div>
+      <div *ngIf="contentStats.topEmojis.length === 0" class="empty-state">No emojis found in chat</div>
+    </div>
+  </div>
+
+  <!-- Media Statistics -->
+  <div class="card-panel glass-card media-panel">
+    <div class="card-header">
+      <h4>🖼️ Media Breakdown</h4>
+      <span class="sub-tag">Total: {{ contentStats.mediaStats.totalMedia }} Media Items</span>
+    </div>
+    <div class="media-list">
+      <div *ngFor="let item of getMediaEntries()" class="media-row">
+        <span class="participant-name">{{ item.name }}</span>
+        <span class="media-badge">{{ item.count }} media shared</span>
+      </div>
+      <div *ngIf="getMediaEntries().length === 0" class="empty-state">No media messages detected</div>
+    </div>
+  </div>
+
+  <!-- Shared Links -->
+  <div class="card-panel glass-card links-panel full-width">
+    <div class="card-header">
+      <h4>🔗 Shared Links & URLs</h4>
+      <span class="sub-tag">{{ contentStats.sharedLinks.length }} URLs Extracted</span>
+    </div>
+    <div class="table-responsive" *ngIf="contentStats.sharedLinks.length > 0">
+      <table class="links-table">
+        <thead>
+          <tr>
+            <th>Shared URL</th>
+            <th>Shared By</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let link of contentStats.sharedLinks">
+            <td class="url-cell">
+              <a [href]="link.url" target="_blank" rel="noopener" class="link-url">{{ link.url }}</a>
+            </td>
+            <td><strong>{{ link.sharedBy }}</strong></td>
+            <td class="date-cell">{{ link.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="contentStats.sharedLinks.length === 0" class="empty-state">No URLs shared in this chat</div>
+  </div>
+
+</div>
