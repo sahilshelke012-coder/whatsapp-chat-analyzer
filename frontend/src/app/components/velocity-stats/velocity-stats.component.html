@@ -1,0 +1,65 @@
+<div class="velocity-card glass-card" *ngIf="velocity">
+  <div class="card-header">
+    <div class="title-group">
+      <span class="icon">⚡</span>
+      <div>
+        <h3>2. Message Activity / Velocity Analysis</h3>
+        <p class="subtitle">Messaging activity trends over time and peak conversation periods</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="velocity-grid">
+    <!-- Peak Spurt Date -->
+    <div class="v-box glass-panel">
+      <span class="v-icon">📅</span>
+      <div class="v-info">
+        <span class="v-label">Busiest Activity Date</span>
+        <h4 class="v-value">{{ velocity.peakDate || 'N/A' }}</h4>
+        <span class="v-sub">{{ velocity.peakDateCount || 0 }} messages sent</span>
+      </div>
+    </div>
+
+    <!-- Peak Spurt Hour -->
+    <div class="v-box glass-panel">
+      <span class="v-icon">⏰</span>
+      <div class="v-info">
+        <span class="v-label">Peak Activity Hour</span>
+        <h4 class="v-value">{{ velocity.peakHour || 'N/A' }}</h4>
+        <span class="v-sub">{{ velocity.peakHourCount || 0 }} messages in peak hour</span>
+      </div>
+    </div>
+
+    <!-- Longest Message Card -->
+    <div class="v-box glass-panel longest-msg-box" *ngIf="velocity.longestMessage">
+      <span class="v-icon">📜</span>
+      <div class="v-info">
+        <span class="v-label">Longest Message Sent</span>
+        <h4 class="v-value">{{ velocity.longestMessage.author }} <small>({{ velocity.longestMessage.wordCount }} words)</small></h4>
+        <p class="msg-snippet">"{{ velocity.longestMessage.message }}"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Over Time Professional Velocity Chart -->
+  <div class="velocity-chart-section" *ngIf="timeAnalysis?.byDate?.length">
+    <h4 class="sub-title">📈 Message Velocity Over Time</h4>
+    <div class="chart-container">
+      <canvas #velocityChartCanvas></canvas>
+    </div>
+  </div>
+
+  <!-- Words Per Message Breakdown -->
+  <div class="words-per-msg-section" *ngIf="userStats.length > 0">
+    <h4 class="sub-title">💬 Message Length & Velocity per Participant</h4>
+    <div class="participant-word-bars">
+      <div *ngFor="let user of userStats" class="user-word-row">
+        <span class="u-name">{{ user.name }}</span>
+        <div class="u-bar-bg">
+          <div class="u-bar-fill" [style.width.%]="(user.avgWordsPerMessage || 0) * 8"></div>
+        </div>
+        <span class="u-val">{{ user.avgWordsPerMessage || 0 }} words / msg</span>
+      </div>
+    </div>
+  </div>
+</div>

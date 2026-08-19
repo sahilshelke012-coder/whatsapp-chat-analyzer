@@ -1,22 +1,25 @@
 <div class="stats-grid" *ngIf="stats">
+  <!-- Card 1: Total Messages -->
   <div class="stat-card glass-card card-messages">
     <div class="card-icon">💬</div>
     <div class="card-info">
       <span class="card-label">Total Messages</span>
       <h2 class="card-value">{{ stats.totalMessages | number }}</h2>
-      <span class="card-sub">Avg {{ stats.avgMessagesPerDay }} msgs / day</span>
+      <span class="card-sub">Messages analyzed</span>
     </div>
   </div>
 
+  <!-- Card 2: Total Words -->
   <div class="stat-card glass-card card-words">
     <div class="card-icon">📝</div>
     <div class="card-info">
       <span class="card-label">Total Words</span>
       <h2 class="card-value">{{ stats.totalWords | number }}</h2>
-      <span class="card-sub">Shared across conversation</span>
+      <span class="card-sub">Words in conversation</span>
     </div>
   </div>
 
+  <!-- Card 3: Total Media -->
   <div class="stat-card glass-card card-media">
     <div class="card-icon">🖼️</div>
     <div class="card-info">
@@ -26,30 +29,53 @@
     </div>
   </div>
 
+  <!-- Card 4: Total Links -->
   <div class="stat-card glass-card card-links">
     <div class="card-icon">🔗</div>
     <div class="card-info">
       <span class="card-label">Total Links</span>
       <h2 class="card-value">{{ stats.totalLinks | number }}</h2>
-      <span class="card-sub">Shared URLs</span>
+      <span class="card-sub">Shared web URLs</span>
     </div>
   </div>
 
+  <!-- Card 5: Total Participants -->
   <div class="stat-card glass-card card-participants">
     <div class="card-icon">👥</div>
     <div class="card-info">
-      <span class="card-label">Participants</span>
+      <span class="card-label">Total Participants</span>
       <h2 class="card-value">{{ stats.participantCount }}</h2>
-      <span class="card-sub">Chat members</span>
+      <span class="card-sub">Active members</span>
     </div>
   </div>
 
+  <!-- Card 6: Most Active Participant -->
   <div class="stat-card glass-card card-active">
     <div class="card-icon">👑</div>
     <div class="card-info">
       <span class="card-label">Most Active Participant</span>
       <h2 class="card-value active-name">{{ stats.mostActiveParticipant }}</h2>
       <span class="card-sub">Top contributor</span>
+    </div>
+  </div>
+
+  <!-- Card 7: Average Messages per Day -->
+  <div class="stat-card glass-card card-avg">
+    <div class="card-icon">📊</div>
+    <div class="card-info">
+      <span class="card-label">Average Messages per Day</span>
+      <h2 class="card-value">{{ stats.avgMessagesPerDay }}</h2>
+      <span class="card-sub">Daily message rate</span>
+    </div>
+  </div>
+
+  <!-- Card 8: Most Active Day -->
+  <div class="stat-card glass-card card-activeday">
+    <div class="card-icon">📅</div>
+    <div class="card-info">
+      <span class="card-label">Most Active Day</span>
+      <h2 class="card-value active-name">{{ stats.mostActiveDay || stats.peakActivityDate || 'N/A' }}</h2>
+      <span class="card-sub">Peak activity day</span>
     </div>
   </div>
 </div>

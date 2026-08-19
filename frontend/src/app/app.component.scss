@@ -139,8 +139,35 @@
       font-size: 0.85rem;
       color: var(--text-subtle);
     }
+
+    .analyzed-file-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.35rem;
+
+      .file-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+
+      .file-name-code {
+        font-family: monospace;
+        font-size: 0.9rem;
+        color: var(--primary-accent);
+        background: rgba(0, 229, 153, 0.1);
+        border: 1px solid rgba(0, 229, 153, 0.25);
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        word-break: break-all;
+        max-width: 100%;
+      }
+    }
   }
 }
+
 
 .btn {
   font-family: inherit;

@@ -23,7 +23,7 @@
     <ng-container *ngIf="!analysisData">
       <div class="hero-banner glass-card">
         <h2>Transform WhatsApp Chat Exports into Visual Insights</h2>
-        <p>Upload your exported <code>.txt</code> chat file to analyze total message counts, peak messaging hours, participant statistics, word frequencies, and emoji distribution.</p>
+        <p>Upload your exported <code>.txt</code> chat file to analyze total message counts, peak messaging hours, participant statistics, word frequencies, sentiment tone, and emoji distribution.</p>
       </div>
 
       <!-- File Upload Component -->
@@ -35,27 +35,53 @@
       <div class="dashboard-header">
         <div class="file-title-group">
           <span class="active-badge">ACTIVE ANALYSIS</span>
-          <h2>{{ analysisData.fileName }}</h2>
-          <span class="timestamp">Analyzed on {{ analysisData.uploadedAt | date:'medium' }}</span>
+          <h2>{{ getCleanFileName(analysisData.fileName) }}</h2>
+          <div class="analyzed-file-row">
+            <span class="file-label">Analyzed File:</span>
+            <code class="file-name-code">{{ getRawUploadedFileName(analysisData.fileName) }}</code>
+            <span class="timestamp">• Analyzed on {{ analysisData.uploadedAt | date:'medium' }}</span>
+          </div>
         </div>
         <button class="btn btn-outline" (click)="resetAnalysis()">
           ← Upload Another File
         </button>
       </div>
 
-      <!-- 1. Overall Summary Cards -->
+      <!-- CHANGE 1 — Exactly 8 Active Analysis Summary Cards -->
       <app-overall-stats [stats]="analysisData.overall"></app-overall-stats>
 
-      <!-- 2. Interactive Charts (Chart.js) -->
+      <!-- Two New Analysis Sections directly after summary cards area -->
+      <!-- Analysis 1: Sentiment Analysis (Positive, Neutral, Negative counts & percentages) -->
+      <app-sentiment-stats 
+        *ngIf="analysisData.sentimentAnalysis"
+        [sentiment]="analysisData.sentimentAnalysis">
+      </app-sentiment-stats>
+
+      <!-- Analysis 2: Message Activity / Velocity Analysis (Busiest period/day, message velocity) -->
+      <app-velocity-stats 
+        *ngIf="analysisData.velocityAnalysis"
+        [velocity]="analysisData.velocityAnalysis"
+        [userStats]="analysisData.userAnalysis"
+        [timeAnalysis]="analysisData.timeAnalysis">
+      </app-velocity-stats>
+
+      <!-- Uploaded Chat File Preview -->
+      <app-chat-preview 
+        *ngIf="analysisData.chatPreview && analysisData.chatPreview.length > 0"
+        [messages]="analysisData.chatPreview" 
+        [fileName]="getRawUploadedFileName(analysisData.fileName)">
+      </app-chat-preview>
+
+      <!-- Interactive Charts (Chart.js) -->
       <app-dashboard 
         [timeAnalysis]="analysisData.timeAnalysis" 
         [userStats]="analysisData.userAnalysis">
       </app-dashboard>
 
-      <!-- 3. Participant Analysis Table -->
+      <!-- Participant Activity Table -->
       <app-user-stats [userStats]="analysisData.userAnalysis"></app-user-stats>
 
-      <!-- 4. Content & Emoji Analysis -->
+      <!-- Content & Emoji Analysis -->
       <app-content-stats [contentStats]="analysisData.contentAnalysis"></app-content-stats>
     </ng-container>
 

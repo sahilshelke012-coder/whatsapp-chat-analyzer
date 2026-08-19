@@ -6,7 +6,11 @@ export interface OverallStats {
   participantCount: number;
   mostActiveParticipant: string;
   avgMessagesPerDay: number;
+  mostActiveDay?: string;
+  peakActivityDate?: string;
+  overallMood?: string;
 }
+
 
 export interface UserStat {
   name: string;
@@ -14,6 +18,7 @@ export interface UserStat {
   words: number;
   media: number;
   activityPercentage: number;
+  avgWordsPerMessage?: number;
 }
 
 export interface TimePoint {
@@ -57,6 +62,37 @@ export interface ContentAnalysis {
   };
 }
 
+export interface SentimentAnalysis {
+  positiveCount: number;
+  positivePercentage: number;
+  neutralCount: number;
+  neutralPercentage: number;
+  negativeCount: number;
+  negativePercentage: number;
+  overallMood: string;
+}
+
+
+export interface VelocityAnalysis {
+  peakDate: string;
+  peakDateCount: number;
+  peakHour: string;
+  peakHourCount: number;
+  longestMessage?: {
+    author: string;
+    message: string;
+    wordCount: number;
+    date: string;
+  } | null;
+}
+
+export interface ChatMessagePreview {
+  author: string;
+  message: string;
+  date: string;
+  isMedia: boolean;
+}
+
 export interface ChatAnalysisData {
   id?: string;
   fileName: string;
@@ -65,6 +101,9 @@ export interface ChatAnalysisData {
   userAnalysis: UserStat[];
   timeAnalysis: TimeAnalysis;
   contentAnalysis: ContentAnalysis;
+  sentimentAnalysis?: SentimentAnalysis;
+  velocityAnalysis?: VelocityAnalysis;
+  chatPreview?: ChatMessagePreview[];
 }
 
 export interface ApiResponse<T> {

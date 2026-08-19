@@ -1,0 +1,50 @@
+<div class="chat-preview-card glass-card">
+  <div class="card-header">
+    <div class="header-left">
+      <span class="header-icon">💬</span>
+      <div>
+        <h3>Uploaded Chat File Messages Preview</h3>
+        <p class="file-info">File: <code>{{ fileName }}</code> • Displaying {{ filteredMessages.length }} parsed messages</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          placeholder="Filter messages or sender..." 
+          [(ngModel)]="searchTerm"
+          class="search-input" />
+      </div>
+      <button class="btn-toggle" (click)="toggleExpand()">
+        {{ isExpanded ? 'Collapse' : 'Expand' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="chat-body" *ngIf="isExpanded">
+    <div class="chat-stream" *ngIf="filteredMessages.length > 0">
+      <div 
+        *ngFor="let msg of filteredMessages" 
+        class="chat-bubble-row"
+        [class.system-msg]="msg.author === 'System'">
+        
+        <div class="chat-bubble">
+          <div class="bubble-header">
+            <span class="author-name">{{ msg.author }}</span>
+            <span class="msg-date">{{ msg.date }}</span>
+          </div>
+          <div class="bubble-content">
+            <span *ngIf="msg.isMedia" class="media-tag">📷 [Media Message]</span>
+            <span *ngIf="!msg.isMedia">{{ msg.message }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="empty-search" *ngIf="filteredMessages.length === 0">
+      No messages match your search term "{{ searchTerm }}".
+    </div>
+  </div>
+</div>

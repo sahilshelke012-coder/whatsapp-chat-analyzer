@@ -1,0 +1,52 @@
+<div class="sentiment-card glass-card" *ngIf="sentiment">
+  <div class="card-header">
+    <div class="title-group">
+      <span class="icon">🎭</span>
+      <div>
+        <h3>1. Sentiment Analysis</h3>
+        <p class="subtitle">Positive, Neutral, and Negative conversation message breakdown</p>
+      </div>
+    </div>
+    <div class="mood-badge">
+      <span class="mood-text">{{ sentiment.overallMood }}</span>
+    </div>
+  </div>
+
+  <!-- Distribution Progress Bar -->
+  <div class="sentiment-bar-wrapper">
+    <div class="sentiment-bar-bg">
+      <div class="bar-segment pos-fill" [style.width.%]="sentiment.positivePercentage" title="Positive"></div>
+      <div class="bar-segment neu-fill" [style.width.%]="sentiment.neutralPercentage" title="Neutral"></div>
+      <div class="bar-segment neg-fill" [style.width.%]="sentiment.negativePercentage" title="Negative"></div>
+    </div>
+  </div>
+
+  <div class="sentiment-metrics-grid">
+    <!-- Positive -->
+    <div class="metric-box pos-box">
+      <span class="box-icon">😄</span>
+      <div class="box-info">
+        <span class="box-label">Positive Messages</span>
+        <h4 class="box-value">{{ sentiment.positiveCount | number }} <small>({{ sentiment.positivePercentage }}%)</small></h4>
+      </div>
+    </div>
+
+    <!-- Neutral -->
+    <div class="metric-box neu-box">
+      <span class="box-icon">💬</span>
+      <div class="box-info">
+        <span class="box-label">Neutral Messages</span>
+        <h4 class="box-value">{{ sentiment.neutralCount | number }} <small>({{ sentiment.neutralPercentage }}%)</small></h4>
+      </div>
+    </div>
+
+    <!-- Negative -->
+    <div class="metric-box neg-box">
+      <span class="box-icon">😟</span>
+      <div class="box-info">
+        <span class="box-label">Negative Messages</span>
+        <h4 class="box-value">{{ sentiment.negativeCount | number }} <small>({{ sentiment.negativePercentage }}%)</small></h4>
+      </div>
+    </div>
+  </div>
+</div>
